@@ -1,25 +1,29 @@
+import socket
 import time
+import base64
 
-import receive
 import threading
 from functions import *
 
-PORT = 6969
+PORT = 5000
 
 def main():
-    temp = "192.168.1.2"
     connection = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    connection.bind((local_ip(), PORT))
+    connection.bind(("192.168.1.9", PORT))
 
-    msg = b"something random here!"
-    receive_tread = threading.Thread(target=receive.receive, args=[connection])
-    connection.sendto(msg,(temp, PORT))
-    time.sleep(1)
-    connection.sendto(msg,(temp, PORT))
-    connection.sendto(msg,(temp, PORT))
-    time.sleep(2)
-    connection.sendto(msg,(temp, PORT))
+    def x():
+        while True:
+            message = connection.recv(1024)
+            message = message.decode('utf-8')
+            print(f"Received : {message}")
 
+    rxr = threading.Thread(target=x)
+    rxr.start()
+
+    while True:
+        data = input("Message: ")
+        data = data.encode()
+        connection.sendto(data, ("192.168.1.5", PORT))
 
 
 if __name__ == '__main__':

@@ -1,4 +1,4 @@
 import socket
 
-def local_ip():
-        return socket.gethostbyname(socket.gethostname())
+def local_ip() -> str:
+    return socket.gethostbyname(socket.gethostname())

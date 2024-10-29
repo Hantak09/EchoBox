@@ -9,7 +9,7 @@ PORT = 5000
 
 def main():
     connection = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    connection.bind(("192.168.1.9", PORT))
+    connection.bind(("192.168.149.162", PORT))
 
     def x():
         while True:
@@ -23,7 +23,7 @@ def main():
     while True:
         data = input("Message: ")
         data = data.encode()
-        connection.sendto(data, ("192.168.1.5", PORT))
+        connection.sendto(data, ("192.168.149.71", PORT))
 
 
 if __name__ == '__main__':
